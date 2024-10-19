@@ -1,4 +1,3 @@
-Filehider
 The File Hiding System with Secure Access and User Management is a Java-based project designed to empower users with a secure and efficient way to safeguard their files. This project emphasizes privacy and data security by allowing users to hide files in a MySQL database while implementing multi-factor authentication through email OTP verification.
 
 Key Features:
