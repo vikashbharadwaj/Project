@@ -1,0 +1,50 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: API-GATEWAY
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: USERSERVICE
+              uri: lb://USERSERVICE
+              predicates:
+                - Path=/users/**
+
+            - id: HOTELSERVICE
+              uri: lb://HOTELSERVICE
+              predicates:
+                - Path=/hotel/**,/staff/**
+
+            - id: RATING-SERVICE
+              uri: lb://RATING-SERVICE
+              predicates:
+                - Path=/Rating/**
+
+  security:
+    oauth2:
+      client:
+        registration:
+          okta:
+            client-id: 0oavf2ov8fdJOEH9V697
+            client-secret: sGmp9wtHQmimuCIJg7iV0GrXDsol1Mlnvm5LQY2iSKu1kFC6o7PpWXJqGoX9gc7B
+            scope: openid, profile, email
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+        provider:
+          okta:
+            issuer-uri:https://integrator-4295779.okta.com/oauth2/default
+
+eureka:
+  instance:
+    prefer-ip-address: true
+
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
